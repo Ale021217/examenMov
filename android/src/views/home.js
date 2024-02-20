@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, FlatList, Image } from 'react-native';
+import { View, Text, StyleSheet, FlatList, Image, TouchableOpacity } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import { getPokemonList } from '../Api/api';
 
 const Home = () => {
   const [pokemonList, setPokemonList] = useState([]);
+  const navigation = useNavigation();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -18,14 +20,21 @@ const Home = () => {
     fetchData();
   }, []);
 
+  const handlePokemonPress = (pokemon) => {
+    console.log('Pokemon pressed:', pokemon); // Añade un console.log para verificar
+    navigation.navigate('PokemonDetails', { pokemon });
+  };
+
   const renderPokemonCard = ({ item }) => (
-    <View style={styles.pokemonCard}>
-      <Image
-        style={styles.pokemonImage}
-        source={{ uri: `https://img.pokemondb.net/sprites/omega-ruby-alpha-sapphire/dex/normal/${item.name}.png` }}
-      />
-      <Text style={styles.pokemonName}>{item.name}</Text>
-    </View>
+    <TouchableOpacity onPress={() => handlePokemonPress(item)}>
+      <View style={styles.pokemonCard}>
+        <Image
+          style={styles.pokemonImage}
+          source={{ uri: `https://img.pokemondb.net/sprites/omega-ruby-alpha-sapphire/dex/normal/${item.name}.png` }}
+        />
+        <Text style={styles.pokemonName}>{item.name}</Text>
+      </View>
+    </TouchableOpacity>
   );
 
   return (

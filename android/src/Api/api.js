@@ -16,10 +16,17 @@ export const getPokemonList = async () => {
 export const getPokemonDetails = async (pokemonName) => {
   try {
     const response = await fetch(`${BASE_URL}/pokemon/${pokemonName}`);
+    
+    if (!response.ok) {
+      console.error(`HTTP error! Status: ${response.status}`);
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+
     const data = await response.json();
     return data;
   } catch (error) {
     console.error(`Error fetching details for ${pokemonName}:`, error);
     throw error;
   }
+
 };
