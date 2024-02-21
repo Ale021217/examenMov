@@ -39,6 +39,9 @@ const Home = () => {
 
   return (
     <View style={styles.container}>
+      <View style={styles.logoPokemon}>
+        <Image source={require('../imgs/logoPM.png')} />
+      </View>
       <Text style={styles.title}>Pokemon List</Text>
       <FlatList
         data={pokemonList}
@@ -54,13 +57,18 @@ const Home = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 16,
     backgroundColor: '#f7f7f7',
+  },
+  logoPokemon: {
+    alignItems: 'center',
+    marginTop: 16,
   },
   title: {
     fontSize: 24,
     fontWeight: 'bold',
+    marginTop: 16,
     marginBottom: 16,
+    marginLeft: 16,
     color: '#333',
   },
   pokemonContainer: {
